@@ -1,5 +1,8 @@
 package com.VU;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.*;
 import java.math.BigDecimal;
 import java.util.Scanner;
@@ -12,11 +15,11 @@ public class Main {
 	private static Decoder decoder = new Decoder();
 	private static Scanner sc = new Scanner(System.in);
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
 		greet();
     }
 
-    public static void greet() { //Main greeting scenario
+    public static void greet() throws IOException { //Main greeting scenario
     	System.out.println();
 		System.out.println("Enter scenario by choosing a number between 1-4: ");
 		System.out.println("1: Vector");
@@ -26,7 +29,7 @@ public class Main {
 		getScenario();
 	}
 
-    public static void getScenario() { //Method for determining what scenario to pick
+    public static void getScenario() throws IOException { //Method for determining what scenario to pick
 		String scenario = sc.next();
 
 		switch (scenario) {
@@ -70,29 +73,26 @@ public class Main {
 
 	}
 
-	public static void vectorScenario() { // Vector scenario - encode, send through channel and decode
+	public static void vectorScenario() throws IOException { // Vector scenario - encode, send through channel and decode
     	System.out.println("Enter a vector, accepted values are 0 and 1");
 		String input = sc.next();
-		List<Integer> vector = Utils.stringToIntegerList(input);
+		List<Integer> vector = Utils.stringToIntegerList(input); // Convert string input to List<Integer>
 
-		if(!vector.isEmpty()) { //Check if is valid binary vector (only 0 and 1 allowed)
+		if(!vector.isEmpty()) { // Check if vector is not empty
 
-			List<Integer> encodedVector = encoder.encode(vector);
+			List<Integer> encodedVector = encoder.encode(vector); // Encode vector
 			String encodedVectorString = encodedVector.stream()
 					.map(String::valueOf)
 					.collect(Collectors.joining(""));
 			System.out.println("Encoded vector: " + encodedVectorString);
 
-			channel.sendVector(encodedVector); //send vector through channel
+			List<Integer> sentVector = channel.sendVector(encodedVector); // Send vector through channel
 
-			String decodedVectorString = decoder.decode(encodedVector)
+			String decodedVectorString = decoder.decode(sentVector)// Decode vector
 					.stream()
 					.map(String::valueOf)
 					.collect(Collectors.joining(""));
 			System.out.println("Decoded vector: " + decodedVectorString);
-
-			System.out.println(decodedVectorString.equals(input));
-
 		} else {
 			vectorScenario();
 		}
@@ -100,11 +100,36 @@ public class Main {
 		greet();
 	}
 
-	public static void textScenario() {
-    	greet();
+	public static void textScenario() throws IOException {
+		System.out.println("Enter text to encode");
+		String input = "";
+
+		BufferedReader stdin = new BufferedReader(new InputStreamReader(System.in));
+		String line;
+
+		while ((line = stdin.readLine()) != null && line.length()!= 0) {
+			input += line + "\n";
+		}
+
+		List<Integer> vector = Utils.stringToBits(input);
+		if(!vector.isEmpty()) {
+			List<Integer> sentVectorNonEncoded = channel.sendText(vector);
+			System.out.println("String passed through channel without coding/decoding: ");
+			System.out.println(Utils.bitsToString(sentVectorNonEncoded));
+
+			List<Integer> encodedVector = encoder.encode(vector);
+			List<Integer> sentVector = channel.sendText(encodedVector); //send vector through channel
+			List<Integer> decodedText = decoder.decode(sentVector);
+			System.out.println("String passed through channel with coding/decoding: ");
+			System.out.println(Utils.bitsToString(decodedText));
+		} else {
+			textScenario();
+		}
+
+		greet();
 	}
 
-	public static void imageScenario() {
+	public static void imageScenario() throws IOException {
 		greet();
 	}
 

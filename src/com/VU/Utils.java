@@ -3,6 +3,7 @@ package com.VU;
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
 public class Utils {
     private static String BINARY_REGEX = "\\b[01]+\\b";
@@ -21,6 +22,30 @@ public class Utils {
         }
 
         return vector;
+    }
+
+    public static List<Integer> stringToBits(String input) {
+        StringBuilder binary = new StringBuilder();
+        for (byte b : input.getBytes())
+        {
+            int intValue = b;
+            for (int i = 0; i < 8; i++)
+            {
+                binary.append((intValue & 128) == 0 ? 0 : 1);
+                intValue <<= 1;
+            }
+        }
+
+        return Utils.stringToIntegerList(binary.toString());
+    }
+
+    public static String bitsToString(List<Integer> bits) {
+        StringBuilder result = new StringBuilder();
+        for (int i = 0; i < bits.size(); i += 8) {
+            String byteString = bits.subList(i, i+8).stream().map(String::valueOf).collect(Collectors.joining());
+            result.append((char) Integer.parseInt(byteString,2));
+        }
+        return result.toString();
     }
 
     public static Integer majorityDecisionElement(List<Integer> list) { // If list contains more than 2 ones, return 1, else 0

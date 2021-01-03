@@ -54,6 +54,22 @@ public class Channel {
         return output;
     }
 
+    // Send text through channel
+    public List<Integer> sendText(List<Integer> input) {
+        ArrayList<Integer> output = new ArrayList<>();
+        // Check bit by bit if error will be made
+        for (Integer integer : input) {
+            // If random value between zero to one is smaller than probability, error will be made, else keep the bit as is
+            if (BigDecimal.valueOf(Math.random()).compareTo(probability) < 0) {
+                output.add(changeBit(integer));
+            } else {
+                output.add(integer);
+            }
+        }
+
+        return output;
+    }
+
     // Manually change where errors were made
     public List<Integer> changeErrors(List<Integer> original) {
         System.out.println("Modify result after error, press enter to leave unchanged");
