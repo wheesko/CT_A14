@@ -76,9 +76,23 @@ public class Main {
 		List<Integer> vector = Utils.stringToIntegerList(input);
 
 		if(!vector.isEmpty()) { //Check if is valid binary vector (only 0 and 1 allowed)
+
 			List<Integer> encodedVector = encoder.encode(vector);
-			System.out.println("Encoded vector: " + encodedVector.stream().map(String::valueOf).collect(Collectors.joining("")));
+			String encodedVectorString = encodedVector.stream()
+					.map(String::valueOf)
+					.collect(Collectors.joining(""));
+			System.out.println("Encoded vector: " + encodedVectorString);
+
 			channel.sendVector(encodedVector); //send vector through channel
+
+			String decodedVectorString = decoder.decode(encodedVector)
+					.stream()
+					.map(String::valueOf)
+					.collect(Collectors.joining(""));
+			System.out.println("Decoded vector: " + decodedVectorString);
+
+			System.out.println(decodedVectorString.equals(input));
+
 		} else {
 			vectorScenario();
 		}
