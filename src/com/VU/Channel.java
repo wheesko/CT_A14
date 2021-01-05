@@ -5,6 +5,8 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.stream.Collectors;
 
+import static com.VU.Utils.BMP_SKIP_SIZE;
+
 /*
     Channel class with probability of distortion
 */
@@ -33,7 +35,7 @@ public class Channel {
             // If random value between zero to one is smaller than probability, error will be made, else keep the bit as is
             if (BigDecimal.valueOf(Math.random()).compareTo(probability) < 0) {
                 errorPositions.add(i + 1);
-                output.add(changeBit(input.get(i)));
+                output.add(VectorUtils.changeBit(input.get(i)));
             } else {
                 output.add(input.get(i));
             }
@@ -54,14 +56,14 @@ public class Channel {
         return output;
     }
 
-    // Send text through channel
-    public List<Integer> sendText(List<Integer> input) {
+    public List<Integer> sendVectorTest(List<Integer> input) {
         ArrayList<Integer> output = new ArrayList<>();
+
         // Check bit by bit if error will be made
         for (Integer integer : input) {
             // If random value between zero to one is smaller than probability, error will be made, else keep the bit as is
             if (BigDecimal.valueOf(Math.random()).compareTo(probability) < 0) {
-                output.add(changeBit(integer));
+                output.add(VectorUtils.changeBit(integer));
             } else {
                 output.add(integer);
             }
@@ -69,6 +71,58 @@ public class Channel {
 
         return output;
     }
+
+    // Send text through channel
+    public List<Integer> sendText(List<Integer> input) {
+        ArrayList<Integer> output = new ArrayList<>();
+        // Check bit by bit if error will be made
+        for (Integer integer : input) {
+            // If random value between zero to one is smaller than probability, error will be made, else keep the bit as is
+            if (BigDecimal.valueOf(Math.random()).compareTo(probability) < 0) {
+                output.add(VectorUtils.changeBit(integer));
+            } else {
+                output.add(integer);
+            }
+        }
+
+        return output;
+    }
+
+    public String sendImage(String image) {
+        StringBuilder output = new StringBuilder();
+
+        String fileHeader = image.substring(0, BMP_SKIP_SIZE);
+        String[] strings = image.split("");
+        // Check bit by bit if error will be made
+        for (int i = BMP_SKIP_SIZE; i < strings.length; i++) {
+            // If random value between zero to one is smaller than probability, error will be made, else keep the bit as is
+            if (BigDecimal.valueOf(Math.random()).compareTo(probability) < 0) {
+                output.append(ImageUtils.changeBit(strings[i]));
+            } else {
+                output.append(strings[i]);
+            }
+        }
+
+        return fileHeader + output.toString();
+    }
+
+    public String sendImageEncoded(String image) {
+        StringBuilder output = new StringBuilder();
+
+        String[] strings = image.split("");
+        // Check bit by bit if error will be made
+        for (int i = 0; i < strings.length; i++) {
+            // If random value between zero to one is smaller than probability, error will be made, else keep the bit as is
+            if (BigDecimal.valueOf(Math.random()).compareTo(probability) < 0) {
+                output.append(ImageUtils.changeBit(strings[i]));
+            } else {
+                output.append(strings[i]);
+            }
+        }
+
+        return output.toString();
+    }
+
 
     // Manually change where errors were made
     public List<Integer> changeErrors(List<Integer> original) {
@@ -80,7 +134,7 @@ public class Channel {
             return original;
         }
 
-        return Utils.stringToIntegerList(result);
+        return VectorUtils.stringToIntegerList(result);
     }
 
     public void printVector(List<Integer> vector, String message) {
@@ -88,7 +142,6 @@ public class Channel {
         System.out.println(vector.stream().map(Object::toString).collect(Collectors.joining()));
     }
 
-    // Display positions of errors
     public void showErrorPositions(List<Integer> errors) {
         if(errors.isEmpty()) {
             System.out.println("No errors made");
@@ -96,11 +149,6 @@ public class Channel {
             System.out.println("Errors were made at positions: ");
             System.out.println(errors.stream().map(Object::toString).collect(Collectors.joining(", ")));
         }
-    }
-
-    // Method to swap bits
-    public Integer changeBit(Integer bit) {
-        return bit == 1 ? 0 : 1;
     }
 
     public BigDecimal getProbability() {

@@ -1,12 +1,14 @@
 package com.VU;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.util.*;
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+import java.io.*;
 import java.math.BigDecimal;
+import java.util.List;
 import java.util.Scanner;
 import java.util.stream.Collectors;
+
+import static com.VU.Utils.BMP_SKIP_SIZE;
 
 public class Main {
 
@@ -58,6 +60,7 @@ public class Main {
 	public static void defineChannel() { //Set channel probability after each scenario
 		System.out.println("Enter channel probability p, 0 <= p <= p: ");
 		String probability = sc.next();
+		probability = probability.replace(",", ".");
 		try {
 			Double parsedProbability = Double.parseDouble(probability);
 			if (parsedProbability.compareTo(0D) < 0 || parsedProbability.compareTo(1D) > 0) {
@@ -76,7 +79,7 @@ public class Main {
 	public static void vectorScenario() throws IOException { // Vector scenario - encode, send through channel and decode
     	System.out.println("Enter a vector, accepted values are 0 and 1");
 		String input = sc.next();
-		List<Integer> vector = Utils.stringToIntegerList(input); // Convert string input to List<Integer>
+		List<Integer> vector = VectorUtils.stringToIntegerList(input); // Convert string input to List<Integer>
 
 		if(!vector.isEmpty()) { // Check if vector is not empty
 
@@ -111,17 +114,17 @@ public class Main {
 			input += line + "\n";
 		}
 
-		List<Integer> vector = Utils.stringToBits(input);
+		List<Integer> vector = TextUtils.stringToBits(input);
 		if(!vector.isEmpty()) {
 			List<Integer> sentVectorNonEncoded = channel.sendText(vector);
 			System.out.println("String passed through channel without coding/decoding: ");
-			System.out.println(Utils.bitsToString(sentVectorNonEncoded));
+			System.out.println(TextUtils.bitsToString(sentVectorNonEncoded));
 
 			List<Integer> encodedVector = encoder.encode(vector);
 			List<Integer> sentVector = channel.sendText(encodedVector); //send vector through channel
 			List<Integer> decodedText = decoder.decode(sentVector);
 			System.out.println("String passed through channel with coding/decoding: ");
-			System.out.println(Utils.bitsToString(decodedText));
+			System.out.println(TextUtils.bitsToString(decodedText));
 		} else {
 			textScenario();
 		}
@@ -130,6 +133,41 @@ public class Main {
 	}
 
 	public static void imageScenario() throws IOException {
+		System.out.println("Enter path to .bmp image: ");
+		String path = sc.next();
+		System.out.println("Enter output file name for unencoded image: ");
+		String fileNameUnencoded = sc.next();
+		System.out.println("Enter output file name for encoded image: ");
+		String fileNameEncoded = sc.next();
+
+		try {
+			File file = new File(path);
+			BufferedImage originalImage = ImageIO.read(file);
+			byte[] imageBytes = ImageUtils.imageToBytes(originalImage);
+			String binaryImage = ImageUtils.bytesToBinaryString(imageBytes);
+
+			//C:\Users\Vytautas\Desktop\test3.bmp
+			//Send without encoding
+			String binaryImageAfterChannel = channel.sendImage(binaryImage);
+			byte[] imageBytesReconstructed = ImageUtils.binaryStringToBytes(binaryImageAfterChannel);
+
+			ImageUtils.saveImage(imageBytesReconstructed, fileNameUnencoded);
+
+			//Send with encoding
+			String imageHeader = binaryImage.substring(0, BMP_SKIP_SIZE);
+			String imageData = binaryImage.substring(BMP_SKIP_SIZE);
+
+			String encodedBinaryImage = encoder.encode(imageData);
+			String binaryImageAfterChannel1 = channel.sendImageEncoded(encodedBinaryImage);
+			String decodedBinaryImage = decoder.decode(binaryImageAfterChannel1);
+			byte[] imageBytesReconstructed1 = ImageUtils.binaryStringToBytes(imageHeader + decodedBinaryImage);
+
+			ImageUtils.saveImage(imageBytesReconstructed1, fileNameEncoded);
+		} catch (IOException exception){
+			System.out.println("Image not found or invalid");
+			imageScenario();
+		}
+
 		greet();
 	}
 

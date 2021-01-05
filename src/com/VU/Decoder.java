@@ -32,4 +32,34 @@ public class Decoder {
 
         return decodedMessage.subList(6, decodedMessage.size());
     }
+
+    public String decode(String encodedMessage) {
+        StringBuilder decodedMessage = new StringBuilder();
+        EncoderMemory encoderMemory = new EncoderMemory();
+        FeedbackDecoderMemory feedbackDecoderMemory = new FeedbackDecoderMemory();
+
+        for (int i = 0; i < encodedMessage.length(); i = i + 2) {
+            Integer bitOne = Integer.parseInt(String.valueOf(encodedMessage.charAt(i)));
+            Integer bitTwo = Integer.parseInt(String.valueOf(encodedMessage.charAt(i+1)));
+
+            decodedMessage.append(
+                    Utils.binarySum(
+                            encoderMemory.getLastBit(),
+                            feedbackDecoderMemory.getMDEValue(
+                                    Utils.binarySum(
+                                            encoderMemory.getMemorySum(bitOne),
+                                            bitTwo
+                                    )
+                            )
+                    )
+            );
+            feedbackDecoderMemory.add(
+                    Utils.binarySum(bitTwo,
+                            encoderMemory.getMemorySum(bitOne))
+            );
+            encoderMemory.add(bitOne);
+        }
+
+        return decodedMessage.substring(6, decodedMessage.length());
+    }
 }
