@@ -32,7 +32,7 @@ public class Main {
 	}
 
     public static void getScenario() throws IOException { //Method for determining what scenario to pick
-		String scenario = sc.next();
+		String scenario = sc.nextLine();
 
 		switch (scenario) {
 			case "1":
@@ -58,8 +58,8 @@ public class Main {
 	}
 
 	public static void defineChannel() { //Set channel probability after each scenario
-		System.out.println("Enter channel probability p, 0 <= p <= p: ");
-		String probability = sc.next();
+		System.out.println("Enter channel probability p, 0 <= p <= 1: ");
+		String probability = sc.nextLine();
 		probability = probability.replace(",", ".");
 		try {
 			Double parsedProbability = Double.parseDouble(probability);
@@ -78,7 +78,8 @@ public class Main {
 
 	public static void vectorScenario() throws IOException { // Vector scenario - encode, send through channel and decode
     	System.out.println("Enter a vector, accepted values are 0 and 1");
-		String input = sc.next();
+		String input = sc.nextLine();
+		input = input.replace(" ", "");
 		List<Integer> vector = VectorUtils.stringToIntegerList(input); // Convert string input to List<Integer>
 
 		if(!vector.isEmpty()) { // Check if vector is not empty
@@ -104,7 +105,7 @@ public class Main {
 	}
 
 	public static void textScenario() throws IOException {
-		System.out.println("Enter text to encode");
+		System.out.println("Enter text to encode, when done, press enter without typing anything");
 		String input = "";
 
 		BufferedReader stdin = new BufferedReader(new InputStreamReader(System.in));
@@ -134,11 +135,11 @@ public class Main {
 
 	public static void imageScenario() throws IOException {
 		System.out.println("Enter path to .bmp image: ");
-		String path = sc.next();
+		String path = sc.nextLine();
 		System.out.println("Enter output file name for unencoded image: ");
-		String fileNameUnencoded = sc.next();
+		String fileNameUnencoded = sc.nextLine();
 		System.out.println("Enter output file name for encoded image: ");
-		String fileNameEncoded = sc.next();
+		String fileNameEncoded = sc.nextLine();
 
 		try {
 			File file = new File(path);

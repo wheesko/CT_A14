@@ -128,7 +128,7 @@ public class Channel {
     public List<Integer> changeErrors(List<Integer> original) {
         System.out.println("Modify result after error, press enter to leave unchanged");
         Scanner sc = new Scanner(System.in);
-        String result = sc.nextLine();
+        String result = sc.nextLine().replace(" ", "");
 
         if(result.isEmpty()) {
             return original;

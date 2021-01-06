@@ -2,18 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="792f86c8-1913-45e1-8511-e60a0f5a3052" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/com/VU/ImageUtils.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/com/VU/TextUtils.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/com/VU/VectorUtils.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/image.bmp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/A14/com/VU/Channel.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/A14/com/VU/Channel.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/A14/com/VU/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/A14/com/VU/Main.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/A14/com/VU/Utils.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/A14/com/VU/Utils.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/VU/Channel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/VU/Channel.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/VU/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/VU/Main.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/VU/Tests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/VU/Tests.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/VU/Utils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/VU/Utils.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -79,24 +71,27 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration default="true" type="ArquillianJUnit" factoryName="" nameIsGenerated="true">
+    <configuration default="true" type="ArquillianTestNG" factoryName="" nameIsGenerated="true">
       <option name="arquillianRunConfiguration">
         <value>
           <option name="containerStateName" value="" />
         </value>
       </option>
-      <option name="TEST_OBJECT" value="class" />
+      <option name="TEST_OBJECT" value="CLASS" />
+      <properties />
+      <listeners />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.Main" />
         <item itemvalue="Application.Tests" />
+        <item itemvalue="Application.Main" />
       </list>
     </recent_temporary>
   </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="SvnConfiguration">
     <configuration />
   </component>
@@ -109,11 +104,12 @@
       <updated>1609250519272</updated>
       <workItem from="1609250523550" duration="7600000" />
       <workItem from="1609605649444" duration="41833000" />
+      <workItem from="1609935894040" duration="16347000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
-    <option name="version" value="1" />
+    <option name="version" value="3" />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
     <option name="TAB_STATES">
@@ -125,58 +121,59 @@
         </entry>
       </map>
     </option>
+    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/com/VU/Main.java</url>
-          <line>144</line>
+          <line>145</line>
           <option name="timeStamp" value="66" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/com/VU/Main.java</url>
-          <line>153</line>
+          <line>154</line>
           <option name="timeStamp" value="70" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/com/VU/Main.java</url>
-          <line>159</line>
+          <line>160</line>
           <option name="timeStamp" value="71" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/com/VU/Main.java</url>
-          <line>160</line>
+          <line>161</line>
           <option name="timeStamp" value="72" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/com/VU/Main.java</url>
-          <line>161</line>
+          <line>162</line>
           <option name="timeStamp" value="73" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/com/VU/Main.java</url>
-          <line>162</line>
+          <line>163</line>
           <option name="timeStamp" value="74" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/com/VU/Main.java</url>
-          <line>164</line>
+          <line>165</line>
           <option name="timeStamp" value="75" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/com/VU/Main.java</url>
-          <line>165</line>
+          <line>166</line>
           <option name="timeStamp" value="76" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/com/VU/Main.java</url>
-          <line>166</line>
+          <line>167</line>
           <option name="timeStamp" value="77" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/com/VU/Main.java</url>
-          <line>167</line>
+          <line>168</line>
           <option name="timeStamp" value="78" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
@@ -186,8 +183,18 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/com/VU/Tests.java</url>
-          <line>34</line>
+          <line>29</line>
           <option name="timeStamp" value="80" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/com/VU/Main.java</url>
+          <line>81</line>
+          <option name="timeStamp" value="81" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/com/VU/Main.java</url>
+          <line>82</line>
+          <option name="timeStamp" value="82" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
